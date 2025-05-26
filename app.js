@@ -4,7 +4,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
 var feedRouter = require('./routes/feed');
 var eventosRouter = require('./routes/eventos');
 var guiaifRouter = require('./routes/guiaif');
@@ -23,8 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/feed', feedRouter);
+app.use('/', feedRouter);
 app.use('/eventos', eventosRouter);
 app.use('/guiaif', guiaifRouter);
 app.use('/menu', menuRouter);
