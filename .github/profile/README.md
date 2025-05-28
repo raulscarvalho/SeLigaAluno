@@ -1,7 +1,7 @@
 <h1 align="center"> Se Liga Aluno </h1>
 
 <h3 align="center">
-    <img src="https://github.com/ForecastHubPOO/.github/blob/802fa69a87b0fffc7ce5e60dd7c69ce96dee71d3/profile/imgs/iconepngagain" height="255" alt="ForecastHUB"><br>
+    <img src="https://github.com/raulscarvalho/SeLigaAluno/blob/master/.github/profile/img/Seligaaluno2%2011.png" height="255" alt="SeLigaAluno"><br>
     A organização do novo mundo
 </h3>
 
