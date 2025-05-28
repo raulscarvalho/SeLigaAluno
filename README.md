@@ -2,7 +2,7 @@
 
 <h3 align="center">
     <img src="https://github.com/raulscarvalho/SeLigaAluno/blob/master/.github/profile/img/seligaaluno.png" height="255" alt="SeLigaAluno"><br>
-    A organização do novo mundo
+    Em andamento
 </h3>
 
 <p align="center">
