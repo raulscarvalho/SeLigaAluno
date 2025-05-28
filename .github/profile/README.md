@@ -1,7 +1,7 @@
 <h1 align="center"> Se Liga Aluno </h1>
 
 <h3 align="center">
-    <img src="https://github.com/raulscarvalho/SeLigaAluno/blob/master/.github/profile/img/Seligaaluno2%2011.png" height="255" alt="SeLigaAluno"><br>
+    <img src="https://github.com/raulscarvalho/SeLigaAluno/blob/master/.github/profile/img/seligaaluno.png" height="255" alt="SeLigaAluno"><br>
     A organização do novo mundo
 </h3>
 
