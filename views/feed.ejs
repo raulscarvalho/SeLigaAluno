@@ -1,40 +1,31 @@
 <%- include('./partials/header') %>
   <main>
-    <div class="container my-5">
-      <h2 class="mb-4">Feed</h2>
-
-      <!-- Post 1 -->
-      <div class="card mb-4">
-        <div class="card-body">
-          <h5 class="card-title">Título do Post</h5>
-          <h6 class="card-subtitle mb-2 text-muted">João • 10 min atrás</h6>
-          <p class="card-text">Conteúdo do post, pode incluir texto, imagens, links, etc.</p>
-          <a href="#" class="card-link">Ler mais</a>
+    <div class="container">
+      <!--Post-->
+      <div class="card mb-0 border border rounded-0">
+        <div class="card-body d-flex">
+          <img src="https://i.pravatar.cc/60" class="rounded-circle me-3" width="50" height="50" alt="Avatar">
+          <div class="flex-grow-1">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <h6 class="mb-0 fw-bold">analiviaa
+                  <span class="badge bg-warning text-dark ms-2">Informática</span>
+                </h6>
+              </div>
+              <div>
+                <button class="btn btn-sm btn-light"><i class="bi bi-three-dots"></i></button>
+              </div>
+            </div>
+            <p class="mt-1 mb-1" style="white-space: pre-wrap;">Lorem Ipsum dolor sit amet.</p>
+            <div class="d-flex justify-content-start mt-2">
+              <button class="btn btn-sm btn-light me-2"><i class="bi bi-heart fs-6"></i></button>
+              <button class="btn btn-sm btn-light me-2"><i class="bi bi-chat fs-6"></i></button>
+              <button class="btn btn-sm btn-light"><i class="bi bi-bookmark fs-6"></i></button>
+            </div>
+          </div>
         </div>
       </div>
-
-      <!-- Post 2 -->
-      <div class="card mb-4">
-        <div class="card-body">
-          <h5 class="card-title">Post de Maria</h5>
-          <h6 class="card-subtitle mb-2 text-muted">Maria • 2h atrás</h6>
-          <p class="card-text">Mais um exemplo de post. Aqui você pode colocar o conteúdo que quiser.</p>
-          <a href="#" class="card-link">Ver mais</a>
-        </div>
-      </div>
-
-      <!-- Post 3 -->
-      <div class="card mb-4">
-        <div class="card-body">
-          <h5 class="card-title">Notícia Importante</h5>
-          <h6 class="card-subtitle mb-2 text-muted">Admin • Ontem</h6>
-          <p class="card-text">Aviso ou notícia para todos os usuários do sistema. Importante manter-se informado.</p>
-          <a href="#" class="card-link">Saiba mais</a>
-        </div>
-      </div>
-
     </div>
-
   </main>
   <footer>
     <%- include('./partials/footer') %>
