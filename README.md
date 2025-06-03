@@ -1,8 +1,7 @@
 <h1 align="center"> Se Liga Aluno </h1>
 
 <h3 align="center">
-    <img src="https://github.com/raulscarvalho/SeLigaAluno/blob/master/.github/profile/img/seligaaluno.png" height="255" alt="SeLigaAluno"><br>
-    Em andamento
+    <img src= "https://github.com/user-attachments/assets/5cbdf72f-3228-4d74-ac1e-85a7bd4b331e" height="250"> 
 </h3>
 
 <p align="center">
