@@ -6,3 +6,30 @@ body {
 a {
   color: #00B7FF;
 }
+
+.container {
+  position: relative;
+}
+
+#btnFlutuante {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  border-radius: 15px;
+  width: 56px;
+  height: 56px;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  background-color: #B9E185;
+  color: #000;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.min-h-125 {
+  min-height: 125px;
+}
