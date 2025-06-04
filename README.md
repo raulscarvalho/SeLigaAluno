@@ -1,7 +1,7 @@
 <h1 align="center"> Se Liga Aluno </h1>
 
 <h3 align="center">
-    <img src= "https://github.com/user-attachments/assets/5cbdf72f-3228-4d74-ac1e-85a7bd4b331e" height="250"> 
+    <img src= "https://github.com/user-attachments/assets/5cbdf72f-3228-4d74-ac1e-85a7bd4b331e" height="200"> 
 </h3>
 
 <p align="center">
@@ -12,10 +12,47 @@
 
 </p>
 
-
-Colaboradores do site:
-- [Ana Lívia Cândido Carneiro](https://github.com/hellgby)
-- [João Marcelo Colombini Cardonha](https://github.com/jmcolombini)
-- [Miguel da Silva Souza Ribeiro](https://github.com/Miguelito0o)
-- [Raúl Simioni de Carvalho](https://github.com/raulscarvalho)
-
+<h3 align=center> Colaboradores do site </h3>
+<table align="center">
+      <tr align="center">
+        <td>
+          <a href="https://github.com/hellgby">
+            <img src="https://github.com/user-attachments/assets/522d8883-484e-431a-9cfb-e13e93ade0e7" width="100px;" alt="Ana Lívia"/>
+            <br>
+            <sub>
+              <b>Ana Lívia</b>
+            </sub>
+          </a>
+          <br>
+        </td>
+        <td>
+          <a href="https://github.com/Miguelito0o">
+            <img src="https://github.com/user-attachments/assets/e9197faa-6b65-494d-a3f7-f503dbfda5ca" width="100px;" alt="Miguel da Silva"/>
+            <br>
+            <sub>
+              <b>Miguel da Silva</b>
+            </sub>
+          </a>
+          <br>
+        </td>
+        <td>
+          <a href="https://github.com/jmcolombini">
+            <img src="https://github.com/user-attachments/assets/8a4550dc-b883-4b5b-870c-713cace5e40e" width="100px;" alt="João Marcelo"/>
+            <br>
+            <sub>
+              <b>João Marcelo</b>
+            </sub>
+          </a>
+          <br>
+        </td>
+        <td>
+          <a href="https://github.com/raulscarvalho">
+            <img src="https://github.com/user-attachments/assets/edaa4d8e-3e7c-4081-be62-fce194736d65" width="100px;" alt="Raúl Simioni"/>
+            <br>
+            <sub>
+              <b>Raúl Simioni</b>
+            </sub>
+          </a>
+          <br>
+        </td>
+</table>
