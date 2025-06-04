@@ -11,23 +11,36 @@ a {
   position: relative;
 }
 
+.btn-icon {
+    background: none;
+    border: none;
+    padding: 0.25rem;
+    cursor: pointer;
+}
+
+.btn-icon:hover {
+  opacity: 0.7;
+}
+
+.btn-icon i {
+  font-size: 1.2rem;
+  color: inherit;
+}
+
 #btnFlutuante {
-  position: absolute;
+  position: fixed;
   bottom: 20px;
-  right: 20px;
+  z-index: 1050;
+  width: 50px;
+  height: 50px;
+  border: none;
   border-radius: 15px;
-  width: 56px;
-  height: 56px;
-  font-size: 24px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
   background-color: #B9E185;
   color: #000;
-  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  z-index: 10;
 }
 
 .min-h-125 {
