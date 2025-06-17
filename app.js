@@ -3,15 +3,28 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var dotenv = require('dotenv');
+var mongoose = require('mongoose');
 var feedRouter = require('./routes/feed');
 var eventosRouter = require('./routes/eventos');
 var guiaifRouter = require('./routes/guiaif');
 var menuRouter = require('./routes/menu');
 var secjacRouter = require('./routes/secjac');
 
+dotenv.config();
+
 var app = express();
 
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URI);
+    console.log("Conectado ao MONGODB");
+  } catch (error) {
+    console.log("ERRO AO CONECTAR AO MONGODB", error);
+  }
+}
+
+connectDB();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
