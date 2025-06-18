@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var dotenv = require('dotenv');
 var mongoose = require('mongoose');
+var Post = require('./post.js');
 var feedRouter = require('./routes/feed');
 var eventosRouter = require('./routes/eventos');
 var guiaifRouter = require('./routes/guiaif');
@@ -14,6 +15,8 @@ var secjacRouter = require('./routes/secjac');
 dotenv.config();
 
 var app = express();
+
+app.use(express.json());
 
 const connectDB = async () => {
   try {
@@ -25,6 +28,43 @@ const connectDB = async () => {
 }
 
 connectDB();
+
+// CREATE
+app.post("/", async (req, res) => {
+  try {
+    const novoPost = await Post.create(req.body);
+    res.json(novoPost);
+    res.render('feed');
+  } catch(error) {
+    res.json({ error: error });
+  }
+});
+
+//GET
+app.get("/", async (req, res) => {
+  try {
+    const posts = await Post.find();
+    console.log(posts);
+    res.render('feed');
+  } catch (error) {
+    res.json({error : error})
+  }
+})
+
+// UPDATE 
+app.put("//:id", async (req, res) => {
+  try {
+    const novoPost = await Post.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new : true }
+    );
+    res.json(novoPost);
+  } catch (error) {
+    res.json({error : error})
+  }
+})
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

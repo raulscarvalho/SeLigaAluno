@@ -1,10 +1,9 @@
-class Post {
-    constructor(title, description, user, likes, comments, date) {
-        this.title;
-        this.description;
-        this.user;
-        this.likes;
-        this.comments;
-        this.date;
-    }
-}
+const mongoose = require('mongoose');
+
+const PostSchema = new mongoose.Schema({
+    author: String,
+    title: String,
+    message: String
+});
+
+module.exports = mongoose.model("Post", PostSchema);
