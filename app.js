@@ -11,6 +11,7 @@ var eventosRouter = require('./routes/eventos');
 var guiaifRouter = require('./routes/guiaif');
 var menuRouter = require('./routes/menu');
 var secjacRouter = require('./routes/secjac');
+var loginRouter = require('./routes/login');
 
 dotenv.config();
 
@@ -80,6 +81,7 @@ app.use('/eventos', eventosRouter);
 app.use('/guiaif', guiaifRouter);
 app.use('/menu', menuRouter);
 app.use('/secjac', secjacRouter);
+app.use('/login', loginRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
