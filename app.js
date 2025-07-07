@@ -1,100 +1,81 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var dotenv = require('dotenv');
-var mongoose = require('mongoose');
-var Post = require('./post.js');
-var feedRouter = require('./routes/feed');
-var eventosRouter = require('./routes/eventos');
-var guiaifRouter = require('./routes/guiaif');
-var menuRouter = require('./routes/menu');
-var secjacRouter = require('./routes/secjac');
-var loginRouter = require('./routes/login');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const dotenv = require('dotenv');
+const mongoose = require('mongoose');
+const session = require('express-session');
 
+// Carregar variáveis de ambiente
 dotenv.config();
 
-var app = express();
+// Importar rotas
+const feedRouter = require('./routes/feed');
+const eventosRouter = require('./routes/eventos');
+const guiaifRouter = require('./routes/guiaif');
+const menuRouter = require('./routes/menu');
+const secjacRouter = require('./routes/secjac');
+const authRouter = require('./routes/auth');        // login e logout
+const postRouter = require('./routes/posts');       // criação de posts
+const cadastroRouter = require('./routes/cadastro'); // cadastro
 
-app.use(express.json());
+const app = express();
 
+// Conectar ao MongoDB
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI);
-    console.log("Conectado ao MONGODB");
+    console.log("✅ Conectado ao MongoDB");
   } catch (error) {
-    console.log("ERRO AO CONECTAR AO MONGODB", error);
+    console.error("❌ Erro ao conectar ao MongoDB:", error);
   }
-}
-
+};
 connectDB();
 
-// CREATE
-app.post("/", async (req, res) => {
-  try {
-    const novoPost = await Post.create(req.body);
-    res.json(novoPost);
-    res.render('feed');
-  } catch(error) {
-    res.json({ error: error });
-  }
-});
-
-//GET
-app.get("/", async (req, res) => {
-  try {
-    const posts = await Post.find();
-    console.log(posts);
-    res.render('feed');
-  } catch (error) {
-    res.json({error : error})
-  }
-})
-
-// UPDATE 
-app.put("//:id", async (req, res) => {
-  try {
-    const novoPost = await Post.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new : true }
-    );
-    res.json(novoPost);
-  } catch (error) {
-    res.json({error : error})
-  }
-})
-
-// view engine setup
+// View engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// Middlewares
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', feedRouter);
-app.use('/eventos', eventosRouter);
-app.use('/guiaif', guiaifRouter);
-app.use('/menu', menuRouter);
-app.use('/secjac', secjacRouter);
-app.use('/login', loginRouter);
+// Sessão
+app.use(session({
+  secret: 'segredo-supersecreto',
+  resave: false,
+  saveUninitialized: true
+}));
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
+// Middleware para deixar o usuário disponível nas views
+app.use((req, res, next) => {
+  res.locals.usuario = req.session.usuario || null;
+  next();
+});
+
+// Rotas
+app.use('/', authRouter);              // login e logout (sem prefixo)
+app.use('/cadastro', cadastroRouter); // cadastro
+app.use('/', feedRouter);             // feed
+app.use('/posts', postRouter);        // posts
+app.use('/eventos', eventosRouter);   // eventos
+app.use('/guiaif', guiaifRouter);     // guia do IF
+app.use('/menu', menuRouter);         // cardápio
+app.use('/secjac', secjacRouter);     // outras infos
+
+// 404
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
+// Tratamento de erro
+app.use(function (err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
   res.status(err.status || 500);
   res.render('error');
 });

@@ -1,56 +1,44 @@
 <%- include('./partials/header') %>
-    <main>
-      <div class="ui segment">
-        <div class="container my-5">
-          <h2 class="mb-4">Principais notícias e eventos</h2>
-      
-          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
-              <div class="col">
-                  <div class="card h-100">
-                      <img src="../images/correioelegante2.png" class="card-img-top" alt="Correio Elegante">
-                      <div class="card-body">
-                          <h5 class="card-title">Correio Elegante</h5>
-                          <p class="card-text">Dia 21/05, em prol do São João!</p>
-                      </div>
-                  </div>
-              </div>
-      
-              <div class="col">
-                  <div class="card h-100">
-                      <img src="../images/correioelegante2.png" class="card-img-top" alt="Correio Elegante">
-                      <div class="card-body">
-                          <h5 class="card-title">Correio Elegante</h5>
-                          <p class="card-text">Dia 21/05, em prol do São João!</p>
-                      </div>
-                  </div>
-              </div>
-      
-              <div class="col">
-                  <div class="card h-100">
-                      <img src="../images/correioelegante2.png" class="card-img-top" alt="Correio Elegante">
-                      <div class="card-body">
-                          <h5 class="card-title">Correio Elegante</h5>
-                          <p class="card-text">Dia 21/05, em prol do São João!</p>
-                      </div>
-                  </div>
-              </div>
-      
-              <div class="col">
-                  <div class="card h-100">
-                      <img src="../images/correioelegante2.png" class="card-img-top" alt="Correio Elegante">
-                      <div class="card-body">
-                          <h5 class="card-title">Correio Elegante</h5>
-                          <p class="card-text">Dia 21/05, em prol do São João!</p>
-                      </div>
-                  </div>
-              </div>
-          </div>
+
+<main>
+  <div class="ui segment">
+    <div class="container my-5">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Principais notícias e eventos</h2>
+        <a href="/eventos/novo" class="btn btn-success">Novo Evento</a>
       </div>
-      </div>
-    </main>
-    <footer>
-      <%- include('./partials/footer') %>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
-  </body>
+
+      <% if (eventos.length === 0) { %>
+        <p class="text-muted">Nenhum evento cadastrado ainda.</p>
+      <% } else { %>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
+          <% eventos.forEach(evento => { %>
+            <div class="col">
+              <div class="card h-100">
+                <img src="../images/correioelegante2.png" class="card-img-top" alt="Imagem Evento">
+                <div class="card-body">
+                  <h5 class="card-title"><%= evento.titulo %></h5>
+                  <p class="card-text"><%= evento.descricao %></p>
+                  <p class="card-text">
+                    <small class="text-muted">
+                      <strong>Data:</strong> <%= new Date(evento.data).toLocaleDateString('pt-BR') %><br>
+                      <strong>Local:</strong> <%= evento.local %>
+                    </small>
+                  </p>
+                </div>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <%- include('./partials/footer') %>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+</body>
 </html>
