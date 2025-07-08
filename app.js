@@ -19,6 +19,7 @@ const secjacRouter = require('./routes/secjac');
 const authRouter = require('./routes/auth');        // login e logout
 const postRouter = require('./routes/posts');       // criação de posts
 const cadastroRouter = require('./routes/cadastro'); // cadastro
+const perfilRouter = require('./routes/perfil');
 
 const app = express();
 
@@ -66,7 +67,7 @@ app.use('/eventos', eventosRouter);   // eventos
 app.use('/guiaif', guiaifRouter);     // guia do IF
 app.use('/menu', menuRouter);         // cardápio
 app.use('/secjac', secjacRouter);     // outras infos
-
+app.use('/perfil', perfilRouter);
 // 404
 app.use(function (req, res, next) {
   next(createError(404));

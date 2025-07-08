@@ -1,0 +1,37 @@
+<!-- <%- include('./partials/header') %>
+
+<main class="container">
+  <h1>Perfil do Usuário</h1>
+  <p><strong>Nome:</strong> <%= usuario.nome %></p>
+  <p><strong>Email:</strong> <%= usuario.email %></p>
+  <p><strong>Curso:</strong> <%= usuario.curso %></p>
+</main>
+
+<%- include('./partials/footer') %> -->
+
+<%- include('./partials/header') %>
+
+<main class="container">
+  <h2>Perfil de <%= usuario.nome %></h2>
+  <p><strong>Email:</strong> <%= usuario.email %></p>
+  <p><strong>Curso:</strong> <%= usuario.curso %></p>
+
+  <hr>
+
+  <h3>Seus Posts</h3>
+
+  <% if (posts.length === 0) { %>
+    <p>Você ainda não fez nenhum post.</p>
+  <% } else { %>
+    <% posts.forEach(post => { %>
+      <div class="card mb-3">
+        <div class="card-body">
+          <p><%= post.message %></p>
+          <small class="text-muted">Postado em <%= post.createdAt.toLocaleDateString() %></small>
+        </div>
+      </div>
+    <% }) %>
+  <% } %>
+</main>
+
+<%- include('./partials/footer') %>
