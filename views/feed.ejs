@@ -35,17 +35,22 @@
 
     <!-- Lista de posts -->
     <div id="posts-container">
-      <% posts.forEach(post => { %>
-        <div class="card mb-3 border rounded-0 min-h-125">
+      <% posts.forEach(post => { 
+        // Garantir que autor, likes e salvosPor estão definidos
+        const curtiu = usuario && post.likes && post.likes.some(id => id.toString() === usuario._id.toString());
+        const salvou = usuario && post.salvosPor && post.salvosPor.some(id => id.toString() === usuario._id.toString());
+      %>
+        <div class="card mb-3 border rounded-0 min-h-125" data-post-id="<%= post._id %>">
           <div class="card-body d-flex">
-            <img src="https://i.pravatar.cc/60" class="rounded-circle me-3" width="50" height="50" alt="Avatar">
+            <img src="<%= post.author && post.author.foto ? '/uploads/' + post.author.foto : 'https://i.pravatar.cc/60' %>"
+              class="rounded-circle me-3" width="50" height="50" alt="Foto de perfil">
             <div class="flex-grow-1">
               <div class="d-flex justify-content-between align-items-start">
                 <div>
                   <h6 class="mb-0 fw-bold">
                     <% if (post.author) { %>
                       <%= post.author.nome %>
-                      <span class="badge 
+                      <span class="badge
                         <% if (post.author.curso === 'Informática') { %> bg-warning text-dark <% } 
                            else if (post.author.curso === 'Eletrotécnica') { %> bg-primary text-white <% } 
                            else if (post.author.curso === 'Edificações') { %> bg-danger text-white <% } 
@@ -61,17 +66,50 @@
                   </h6>
                 </div>
                 <div>
-                  <button class="btn-icon"><i class="bi bi-three-dots"></i></button>
+                  <button class="btn-icon" aria-label="Mais opções do post"><i class="bi bi-three-dots"></i></button>
                 </div>
               </div>
               <p class="mt-1 mb-1" style="white-space: pre-wrap;">
                 <%= post.message %>
               </p>
-              <div class="d-flex justify-content-start mt-2">
-                <button class="btn-icon me-2"><i class="bi bi-heart fs-6"></i></button>
-                <button class="btn-icon me-2"><i class="bi bi-chat fs-6"></i></button>
-                <button class="btn-icon"><i class="bi bi-bookmark fs-6"></i></button>
+              <div class="d-flex justify-content-start align-items-center mt-2 gap-3">
+                <button class="btn-icon btn-like" aria-label="<%= curtiu ? 'Descurtir post' : 'Curtir post' %>" title="Curtir">
+                  <i class="bi <%= curtiu ? 'bi-heart-fill text-danger' : 'bi-heart' %> fs-6"></i>
+                  <span class="like-count"><%= post.likes ? post.likes.length : 0 %></span>
+                </button>
+                <button class="btn-icon btn-comment" aria-label="Comentar post" title="Comentar">
+                  <i class="bi bi-chat fs-6"></i>
+                  <span class="comment-count"><%= post.comentarios ? post.comentarios.length : 0 %></span>
+                </button>
+                <button class="btn-icon btn-save" aria-label="<%= salvou ? 'Remover dos salvos' : 'Salvar post' %>" title="Salvar">
+                  <i class="bi <%= salvou ? 'bi-bookmark-fill text-primary' : 'bi-bookmark' %> fs-6"></i>
+                </button>
               </div>
+
+              <!-- Área de comentários (inicialmente oculta) -->
+              <div class="comentarios mt-3" style="display:none;">
+                <div class="lista-comentarios mb-2">
+                  <% if (post.comentarios && post.comentarios.length > 0) { %>
+                    <% post.comentarios.forEach(comentario => { %>
+                      <div class="comentario border rounded p-2 mb-1">
+                        <small>
+                          <strong><%= comentario.autor && comentario.autor.nome ? comentario.autor.nome : 'Anônimo' %>:</strong>
+                          <%= comentario.texto %>
+                        </small>
+                      </div>
+                    <% }) %>
+                  <% } else { %>
+                    <p class="text-muted">Nenhum comentário ainda.</p>
+                  <% } %>
+                </div>
+                <form class="form-comentario">
+                  <div class="input-group">
+                    <input type="text" class="form-control input-comentario" placeholder="Escreva um comentário..." required>
+                    <button class="btn btn-primary btn-submit-comentario" type="submit">Enviar</button>
+                  </div>
+                </form>
+              </div>
+
             </div>
           </div>
         </div>
@@ -90,6 +128,9 @@
     border: none;
     padding: 0.25rem;
     cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
   }
 
   .btn-icon:hover {
@@ -105,6 +146,11 @@
     bottom: 20px;
     right: 20px;
     z-index: 999;
+  }
+
+  .comentarios {
+    border-top: 1px solid #ccc;
+    padding-top: 0.5rem;
   }
 </style>
 
@@ -136,6 +182,7 @@
     }
   });
 
+
   function alinharBotaoComContainer() {
     const container = document.querySelector('.container');
     const btn = document.getElementById('btnFlutuante');
@@ -145,6 +192,127 @@
 
   window.addEventListener('resize', alinharBotaoComContainer);
   window.addEventListener('DOMContentLoaded', alinharBotaoComContainer);
+
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const usuarioLogado = JSON.parse('<%= JSON.stringify(usuario || null) %>');
+
+    document.querySelectorAll('.btn-like').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        if (!usuarioLogado) {
+          alert('Faça login para curtir posts.');
+          return;
+        }
+        const card = btn.closest('.card');
+        const postId = card.dataset.postId;
+        try {
+          const res = await fetch(`/posts/${postId}/like`, { method: 'POST' });
+          const data = await res.json();
+          if (data.success) {
+
+            const icon = btn.querySelector('i');
+            const countSpan = btn.querySelector('.like-count');
+            if (icon.classList.contains('bi-heart')) {
+              icon.classList.remove('bi-heart');
+              icon.classList.add('bi-heart-fill', 'text-danger');
+            } else {
+              icon.classList.add('bi-heart');
+              icon.classList.remove('bi-heart-fill', 'text-danger');
+            }
+            countSpan.textContent = data.likesCount;
+          } else {
+            alert('Erro ao curtir post');
+          }
+        } catch (err) {
+          console.error(err);
+          alert('Erro na conexão');
+        }
+      });
+    });
+
+    document.querySelectorAll('.btn-comment').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const card = btn.closest('.card');
+        const comentariosArea = card.querySelector('.comentarios');
+        if (comentariosArea.style.display === 'none' || !comentariosArea.style.display) {
+          comentariosArea.style.display = 'block';
+        } else {
+          comentariosArea.style.display = 'none';
+        }
+      });
+    });
+
+    document.querySelectorAll('.form-comentario').forEach(form => {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!usuarioLogado) {
+          alert('Faça login para comentar.');
+          return;
+        }
+        const card = form.closest('.card');
+        const postId = card.dataset.postId;
+        const input = form.querySelector('.input-comentario');
+        const texto = input.value.trim();
+        if (!texto) return;
+
+        try {
+          const res = await fetch(`/posts/${postId}/comentar`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ texto })
+          });
+          const data = await res.json();
+          if (data.success) {
+            const listaComentarios = card.querySelector('.lista-comentarios');
+            listaComentarios.innerHTML = '';
+            data.comentarios.forEach(comentario => {
+              const div = document.createElement('div');
+              div.classList.add('comentario', 'border', 'rounded', 'p-2', 'mb-1');
+              div.innerHTML = `<small><strong>${comentario.autor && comentario.autor.nome ? comentario.autor.nome : 'Anônimo'}:</strong> ${comentario.texto}</small>`;
+              listaComentarios.appendChild(div);
+            });
+            input.value = '';
+          } else {
+            alert('Erro ao enviar comentário.');
+          }
+        } catch (err) {
+          console.error(err);
+          alert('Erro na conexão');
+        }
+      });
+    });
+
+    document.querySelectorAll('.btn-save').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        if (!usuarioLogado) {
+          alert('Faça login para salvar posts.');
+          return;
+        }
+        const card = btn.closest('.card');
+        const postId = card.dataset.postId;
+        try {
+          const res = await fetch(`/posts/${postId}/salvar`, { method: 'POST' });
+          const data = await res.json();
+          if (data.success) {
+            const icon = btn.querySelector('i');
+            if (icon.classList.contains('bi-bookmark')) {
+              icon.classList.remove('bi-bookmark');
+              icon.classList.add('bi-bookmark-fill', 'text-primary');
+            } else {
+              icon.classList.add('bi-bookmark');
+              icon.classList.remove('bi-bookmark-fill', 'text-primary');
+            }
+          } else {
+            alert('Erro ao salvar post');
+          }
+        } catch (err) {
+          console.error(err);
+          alert('Erro na conexão');
+        }
+      });
+    });
+
+  });
 </script>
 </body>
 </html>

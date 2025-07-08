@@ -7,10 +7,8 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const session = require('express-session');
 
-// Carregar variáveis de ambiente
 dotenv.config();
 
-// Importar rotas
 const feedRouter = require('./routes/feed');
 const eventosRouter = require('./routes/eventos');
 const guiaifRouter = require('./routes/guiaif');
@@ -23,7 +21,6 @@ const perfilRouter = require('./routes/perfil');
 
 const app = express();
 
-// Conectar ao MongoDB
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI);
@@ -34,7 +31,6 @@ const connectDB = async () => {
 };
 connectDB();
 
-// View engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -44,6 +40,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Servir uploads (fotos de perfil)
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
 // Sessão
 app.use(session({
@@ -58,22 +57,20 @@ app.use((req, res, next) => {
   next();
 });
 
-// Rotas
-app.use('/', authRouter);              // login e logout (sem prefixo)
-app.use('/cadastro', cadastroRouter); // cadastro
-app.use('/', feedRouter);             // feed
-app.use('/posts', postRouter);        // posts
-app.use('/eventos', eventosRouter);   // eventos
-app.use('/guiaif', guiaifRouter);     // guia do IF
-app.use('/menu', menuRouter);         // cardápio
-app.use('/secjac', secjacRouter);     // outras infos
+app.use('/', authRouter);
+app.use('/cadastro', cadastroRouter);
+app.use('/', feedRouter);
+app.use('/posts', postRouter);
+app.use('/eventos', eventosRouter);
+app.use('/guiaif', guiaifRouter);
+app.use('/menu', menuRouter);
+app.use('/secjac', secjacRouter);
 app.use('/perfil', perfilRouter);
-// 404
+
 app.use(function (req, res, next) {
   next(createError(404));
 });
 
-// Tratamento de erro
 app.use(function (err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
