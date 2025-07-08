@@ -3,7 +3,6 @@ const router = express.Router();
 const Post = require('../models/Post');
 const Usuario = require('../models/Usuario'); 
 const multer = require('multer');
-const path = require('path');
 
 // Middleware para verificar se o usuário está logado
 function verificarLogin(req, res, next) {
@@ -14,17 +13,7 @@ function verificarLogin(req, res, next) {
   }
 }
 
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, '../public/uploads')); 
-  },
-  filename: function (req, file, cb) {
-    const ext = path.extname(file.originalname);
-    const nomeArquivo = Date.now() + ext;
-    cb(null, nomeArquivo);
-  }
-});
+const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
 router.get('/', verificarLogin, async (req, res) => {
@@ -54,7 +43,10 @@ router.post('/editar', verificarLogin, upload.single('foto'), async (req, res) =
     usuario.nome = nome;
 
     if (req.file) {
-      usuario.foto = req.file.filename;
+      usuario.foto = {
+        data: req.file.buffer,
+        contentType: req.file.mimetype
+      };
     }
 
     await usuario.save();

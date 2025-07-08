@@ -6,7 +6,10 @@ const UsuarioSchema = new mongoose.Schema({
   email: { type: String, unique: true },
   senha: String,
   curso: String,
-  foto: String
+  foto: {
+    data: Buffer,
+    contentType: String
+  }
 });
 
 // Criptografar a senha antes de salvar
