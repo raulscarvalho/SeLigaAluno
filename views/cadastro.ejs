@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
   <meta charset="UTF-8">
-  <title>Se Liga Aluno</title>
+  <title>Se Liga Aluno - Cadastro</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
@@ -12,31 +12,33 @@
 </head>
 
 <body>
-  <div class="container mt-5">
-    <h2>Cadastro de Usuário</h2>
+  <div class="container mt-5" style="max-width: 600px;">
+    <h2 class="mb-4 text-center">Cadastro de Usuário</h2>
 
     <% if (erro) { %>
       <div class="alert alert-danger"><%= erro %></div>
     <% } %>
 
-    <!-- ✅ enctype necessário para upload de arquivos -->
     <form method="POST" action="/cadastro" enctype="multipart/form-data">
       <div class="mb-3">
         <label for="nome" class="form-label">Nome</label>
-        <input type="text" name="nome" class="form-control" required>
+        <input type="text" id="nome" name="nome" class="form-control" required>
       </div>
+
       <div class="mb-3">
         <label for="email" class="form-label">E-mail</label>
-        <input type="email" name="email" class="form-control" required>
+        <input type="email" id="email" name="email" class="form-control" required>
       </div>
+
       <div class="mb-3">
         <label for="senha" class="form-label">Senha</label>
-        <input type="password" name="senha" class="form-control" required>
+        <input type="password" id="senha" name="senha" class="form-control" required>
       </div>
+
       <div class="mb-3">
         <label for="curso" class="form-label">Curso</label>
-        <select name="curso" class="form-select" required>
-          <option value="" disabled selected>Selecione o curso</option>
+        <select id="curso" name="curso" class="form-select" required>
+          <option value="" disabled selected>Selecione seu curso</option>
           <option value="Informática">Informática</option>
           <option value="Eletrotécnica">Eletrotécnica</option>
           <option value="Edificações">Edificações</option>
@@ -46,16 +48,15 @@
         </select>
       </div>
 
-      <!-- ✅ Substituído campo de URL por upload de imagem -->
-      <div class="mb-3">
-        <label for="foto" class="form-label">Foto de Perfil</label>
-        <input type="file" name="foto" class="form-control" accept="image/*">
+      <div class="mb-4">
+        <label for="foto" class="form-label">Foto de Perfil (opcional)</label>
+        <input type="file" id="foto" name="foto" class="form-control" accept="image/*">
       </div>
 
-      <button type="submit" class="btn btn-primary">Cadastrar</button>
+      <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
     </form>
 
-    <p class="mt-3">
+    <p class="text-center mt-3">
       Já tem conta? <a href="/login">Faça login</a>
     </p>
   </div>
