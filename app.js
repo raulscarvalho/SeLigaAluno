@@ -41,10 +41,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Servir uploads (fotos de perfil)
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
-// Sessão
 app.use(session({
   secret: 'segredo-supersecreto',
   resave: false,
@@ -57,10 +55,10 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use('/posts', postRouter);
 app.use('/', authRouter);
 app.use('/cadastro', cadastroRouter);
 app.use('/', feedRouter);
-app.use('/posts', postRouter);
 app.use('/eventos', eventosRouter);
 app.use('/guiaif', guiaifRouter);
 app.use('/menu', menuRouter);
