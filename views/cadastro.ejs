@@ -12,55 +12,70 @@
 </head>
 
 <body>
-  <div class="container mt-5" style="max-width: 600px;">
-    <h2 class="mb-4 text-center">Cadastro de Usuário</h2>
+  <div class="container-cadastro">
+    <div class="text-left">
+        <div>
+          <h2 class="h2-login">Se Liga Aluno</h2>
+          <p class="p-login">Crie uma conta</p>
+        </div>
+        <% if (erro) { %>
+          <div class="alert alert-danger"><%= erro %></div>
+        <% } %>
+        <div>
+          <form method="POST" action="/cadastro" enctype="multipart/form-data">
+            <div class="mb-3">
+              <label for="nome" class="form-label">Nome</label>
+              <div class="stroke">
+                <input type="text" id="nome" name="nome" class="form-control" required>
+              </div>
+            </div>
 
-    <% if (erro) { %>
-      <div class="alert alert-danger"><%= erro %></div>
-    <% } %>
+            <div class="mb-3">
+              <label for="email" class="form-label">E-mail</label>
+              <div class="stroke">
+              <input type="email" id="email" name="email" class="form-control" required>
+              </div>
+            </div>
 
-    <form method="POST" action="/cadastro" enctype="multipart/form-data">
-      <div class="mb-3">
-        <label for="nome" class="form-label">Nome</label>
-        <input type="text" id="nome" name="nome" class="form-control" required>
-      </div>
+            <div class="mb-3">
+              <label for="senha" class="form-label">Senha</label>
+              <div class="stroke">
+              <input type="password" id="senha" name="senha" class="form-control" required>
+              </div>
+            </div>
 
-      <div class="mb-3">
-        <label for="email" class="form-label">E-mail</label>
-        <input type="email" id="email" name="email" class="form-control" required>
-      </div>
+            <div class="mb-3">
+              <label for="curso" class="form-label">Curso</label>
+              <div class="stroke">
+              <select id="curso" name="curso" class="form-select" required>
+                <option value="" disabled selected>Selecione seu curso</option>
+                <option value="Informática">Informática</option>
+                <option value="Eletrotécnica">Eletrotécnica</option>
+                <option value="Edificações">Edificações</option>
+                <option value="Química">Química</option>
+                <option value="Mecânica">Mecânica</option>
+                <option value="Telecomunicações">Telecomunicações</option>
+              </select>
+              </div>
+            </div>
 
-      <div class="mb-3">
-        <label for="senha" class="form-label">Senha</label>
-        <input type="password" id="senha" name="senha" class="form-control" required>
-      </div>
+            <div class="mb-4">
+              <label for="foto" class="form-label">Foto de Perfil (opcional)</label>
+              <div class="stroke">
+              <input type="file" id="foto" name="foto" class="form-control" accept="image/*">
+              </div>
+            </div>
+        </div>
+          <div class="centralizar">
+            <button type="submit" class="btn_entrar">Cadastrar-se</button>
+          </div>
+        </form>
+    </div>
 
-      <div class="mb-3">
-        <label for="curso" class="form-label">Curso</label>
-        <select id="curso" name="curso" class="form-select" required>
-          <option value="" disabled selected>Selecione seu curso</option>
-          <option value="Informática">Informática</option>
-          <option value="Eletrotécnica">Eletrotécnica</option>
-          <option value="Edificações">Edificações</option>
-          <option value="Química">Química</option>
-          <option value="Mecânica">Mecânica</option>
-          <option value="Telecomunicações">Telecomunicações</option>
-        </select>
-      </div>
-
-      <div class="mb-4">
-        <label for="foto" class="form-label">Foto de Perfil (opcional)</label>
-        <input type="file" id="foto" name="foto" class="form-control" accept="image/*">
-      </div>
-
-      <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
-    </form>
-
-    <p class="text-center mt-3">
+    <p class="p2-login">
       Já tem conta? <a href="/login">Faça login</a>
     </p>
   </div>
-
   <%- include('./partials/footer') %>
 </body>
 

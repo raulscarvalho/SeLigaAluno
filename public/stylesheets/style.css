@@ -58,11 +58,16 @@ a {
   min-height: 125px;
 }
 
+
 /* Login & Cadastro */
 
 
+.text-left{
+  text-align: left;
+}
 
 .h2-login{
+  text-align:center;
   color: black;
   font-size: 50px;
   font-family: Albert Sans;
@@ -71,6 +76,7 @@ a {
 }
 
 .p-login{
+  text-align:center;
   color: rgba(0, 0, 0, 0.60);
   font-size: 25px;
   font-family: Abhaya Libre;
@@ -92,12 +98,21 @@ a {
 }
 
 .container-login{
+  padding-top: 50px;
   flex:1;
-  padding-top:50px;
   display:grid;
   text-align: center;
   padding-left: 35%;
   padding-right: 35%;
+}
+
+.container-cadastro{
+  flex:1;
+  display:grid;
+  text-align: center;
+  padding-left: 35%;
+  padding-right: 35%;
+  gap:30px;
 }
 
 .stroke{
@@ -114,4 +129,10 @@ a {
   padding-right: 9px; 
   border-radius: 40px; 
   gap: 10px; 
+}
+
+.centralizar{
+  text-align: center;
+  align-items: center;
+  justify-content: center;
 }

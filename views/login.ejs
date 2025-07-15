@@ -13,24 +13,28 @@
 
 <body>
     <div class="container-login">
-          <div>
-            <h2 class="h2-login">Se Liga Aluno</h2>
-            <p class="p-login">Entre na sua conta</p>
-          </div>
+        <div>
+          <h2 class="h2-login">Se Liga Aluno</h2>
+          <p class="p-login">Entre na sua conta</p>
+        </div>
         <% if (erro) { %>
           <div class="alert alert-danger"><%= erro %></div>
         <% } %>
         <form method="POST" action="/login">
           <div class="mb-3">
-            <label for="email" class="form-label">E-mail</label>
-            <div class="stroke">
-              <input type="email" name="email" class="form-control" required>
+            <div class="text-left">
+              <label for="email" class="form-label">E-mail</label>
+              <div class="stroke">
+               <input type="email" name="email" class="form-control" required>
+              </div>
             </div>
           </div>
           <div class="mb-3">
-            <label for="senha" class="form-label">Senha</label>
-            <div class="stroke">
-              <input type="password" name="senha" class="form-control" required>
+            <div class="text-left">
+              <label for="senha" class="form-label">Senha</label>
+              <div class="stroke">
+                <input type="password" name="senha" class="form-control" required>
+              </div>
             </div>
           </div>
           <div>
