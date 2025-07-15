@@ -98,7 +98,7 @@ a {
 }
 
 .container-login{
-  padding-top: 50px;
+  padding-top: 100px;
   flex:1;
   display:grid;
   text-align: center;
@@ -112,7 +112,6 @@ a {
   text-align: center;
   padding-left: 35%;
   padding-right: 35%;
-  gap:30px;
 }
 
 .stroke{
@@ -128,11 +127,37 @@ a {
   padding-left: 9px; 
   padding-right: 9px; 
   border-radius: 40px; 
-  gap: 10px; 
 }
 
 .centralizar{
   text-align: center;
   align-items: center;
   justify-content: center;
+}
+
+.alert {
+  position:relative;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  height: 50px;
+}
+
+.alert-danger {
+  color: #842029;
+  background-color: #f8d7da;
+  border-color: #f5c2c7;
+}
+
+.SLA{
+  gap:20px;
+}
+
+.padding{
+  width: fit-content;
+  height: 80px;
+}
+
+.padding2{
+  width: fit-content;
+  height: 50px;
 }

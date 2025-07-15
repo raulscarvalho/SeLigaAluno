@@ -13,13 +13,14 @@
 
 <body>
     <div class="container-login">
-        <div>
+      <div class="SLA">
           <h2 class="h2-login">Se Liga Aluno</h2>
           <p class="p-login">Entre na sua conta</p>
-        </div>
+      
         <% if (erro) { %>
           <div class="alert alert-danger"><%= erro %></div>
         <% } %>
+        <div class="padding"></div>
         <form method="POST" action="/login">
           <div class="mb-3">
             <div class="text-left">
@@ -41,9 +42,11 @@
           <button type="submit" class="btn_entrar">Entrar</button>
           </div>
         </form>
+        <div  class="padding"></div>
         <p class="p2-login">
         Não tem uma conta? <a href="/cadastro">Crie uma aqui</a>
         </p>
+      </div>
     </div>
 </body>
 <%- include('./partials/footer') %>
