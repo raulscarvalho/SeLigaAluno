@@ -1,51 +1,52 @@
 <%- include('./partials/header') %>
 
   <main class="container mt-5">
-    <h2>Perfil de <%= usuario.nome %>
-    </h2>
+    
 
-    <div class="row mb-4">
-      <div class="col-md-4 text-center">
-        <% if (usuario.foto && usuario.foto.data) { %>
-          <img src="data:<%= usuario.foto.contentType %>;base64,<%= usuario.foto.data.toString('base64') %>"
-            class="rounded-circle img-thumbnail" width="150" height="150" alt="Foto de perfil">
-          <% } else { %>
-            <img src="https://i.pravatar.cc/150" class="rounded-circle img-thumbnail" width="150" height="150"
-              alt="Foto de perfil padrão">
-            <% } %>
-      </div>
-      <div class="col-md-8">
-        <form action="/perfil/editar" method="POST" enctype="multipart/form-data">
-          <div class="mb-3">
-            <label class="form-label">Nome</label>
-            <input type="text" name="nome" class="form-control" value="<%= usuario.nome %>" required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Nova foto de perfil</label>
-            <input type="file" name="foto" accept="image/*" class="form-control">
-          </div>
-          <button type="submit" class="btn btn-primary">Salvar Alterações</button>
-        </form>
-      </div>
-    </div>
-
-    <hr>
-
-    <h3>Seus Posts</h3>
-    <% if (posts.length===0) { %>
-      <p>Você ainda não fez nenhum post.</p>
-      <% } else { %>
-        <% posts.forEach(post=> { %>
-          <div class="card mb-3">
-            <div class="card-body">
-              <p>
-                <%= post.message %>
-              </p>
-              <small class="text-muted">Postado em <%= post.createdAt.toLocaleDateString() %></small>
+      <div class="row mb-4">
+        <div class="foto-nome">
+            <% if (usuario.foto && usuario.foto.data) { %>
+              <img src="data:<%= usuario.foto.contentType %>;base64,<%= usuario.foto.data.toString('base64') %>"
+                class="rounded-circle img-thumbnail" width="150" height="150" alt="Foto de perfil">
+              <% } else { %>
+                <img src="https://i.pravatar.cc/150" class="rounded-circle img-thumbnail" width="150" height="150"
+                  alt="Foto de perfil padrão">
+                <% } %>
+          <h2>Perfil de <%= usuario.nome %></h2>
+          <p>curso</p>
+        </div>
+        <div class="col-md-8">
+          <form action="/perfil/editar" method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+              <label class="form-label">Nome</label>
+              <input type="text" name="nome" class="form-control" value="<%= usuario.nome %>" required>
             </div>
-          </div>
-          <% }) %>
-            <% } %>
+            <div class="mb-3">
+              <label class="form-label">Nova foto de perfil</label>
+              <input type="file" name="foto" accept="image/*" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+          </form>
+        </div>
+      </div>
+
+      <hr>
+
+      <h3>Seus Posts</h3>
+      <% if (posts.length===0) { %>
+        <p>Você ainda não fez nenhum post.</p>
+        <% } else { %>
+          <% posts.forEach(post=> { %>
+            <div class="card mb-3">
+              <div class="card-body">
+                <p>
+                  <%= post.message %>
+                </p>
+                <small class="text-muted">Postado em <%= post.createdAt.toLocaleDateString() %></small>
+              </div>
+            </div>
+            <% }) %>
+              <% } %>
   </main>
 
   <%- include('./partials/footer') %>
