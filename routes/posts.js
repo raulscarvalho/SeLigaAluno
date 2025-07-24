@@ -3,6 +3,7 @@ const router = express.Router();
 const Post = require('../models/Post');
 const verificarLogin = require('../middlewares/verificarLogin');
 
+// Criar novo post
 router.post('/criar', verificarLogin, async (req, res) => {
   try {
     const { message, title } = req.body;
@@ -19,64 +20,42 @@ router.post('/criar', verificarLogin, async (req, res) => {
   }
 });
 
-router.post('/posts/:id/like', async (req, res) => {
-  const postId = req.params.id;
-  const userId = req.user._id;
-
+// Editar post
+router.put('/:id/editar', verificarLogin, async (req, res) => {
   try {
-    const post = await Post.findById(postId);
+    const post = await Post.findById(req.params.id);
+    if (!post) return res.status(404).json({ success: false, message: 'Post não encontrado' });
 
-    const index = post.likes.indexOf(userId);
-    if (index === -1) {
-      post.likes.push(userId);
-    } else {
-      post.likes.splice(index, 1);
+    if (post.author.toString() !== req.session.usuario._id.toString()) {
+      return res.status(403).json({ success: false, message: 'Sem permissão para editar este post.' });
     }
 
+    post.message = req.body.message;
     await post.save();
-    res.json({ success: true, likesCount: post.likes.length });
-  } catch (error) {
-    res.json({ success: false });
-  }
-});
 
-
-router.post('/posts/:id/comentar', async (req, res) => {
-  const postId = req.params.id;
-  const texto = req.body.texto;
-  const userId = req.user._id;
-
-  try {
-    const post = await Post.findById(postId).populate('comentarios.autor');
-    post.comentarios.push({ texto, autor: userId });
-    await post.save();
-    await post.populate('comentarios.autor');
-
-    res.json({ success: true, comentarios: post.comentarios });
-  } catch (error) {
-    res.json({ success: false });
-  }
-});
-
-router.post('/posts/:id/salvar', async (req, res) => {
-  const postId = req.params.id;
-  const userId = req.user._id;
-
-  try {
-    const post = await Post.findById(postId);
-    const index = post.salvosPor.indexOf(userId);
-    if (index === -1) {
-      post.salvosPor.push(userId);
-    } else {
-      post.salvosPor.splice(index, 1);
-    }
-
-    await post.save();
     res.json({ success: true });
-  } catch (error) {
-    res.json({ success: false });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false });
   }
 });
 
+// Deletar post
+router.delete('/:id', verificarLogin, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (!post) return res.status(404).json({ success: false, message: 'Post não encontrado' });
+
+    if (post.author.toString() !== req.session.usuario._id.toString()) {
+      return res.status(403).json({ success: false, message: 'Sem permissão para excluir este post.' });
+    }
+
+    await post.deleteOne();
+    res.json({ success: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false });
+  }
+});
 
 module.exports = router;
