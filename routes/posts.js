@@ -19,14 +19,14 @@ router.post('/criar', verificarLogin, async (req, res) => {
   }
 });
 
-router.post('/:id/like', verificarLogin, async (req, res) => {
+router.post('/posts/:id/like', async (req, res) => {
+  const postId = req.params.id;
+  const userId = req.user._id;
+
   try {
-    const post = await Post.findById(req.params.id);
-    if (!post) return res.status(404).json({ success: false, message: 'Post não encontrado' });
+    const post = await Post.findById(postId);
 
-    const userId = req.session.usuario._id.toString();
-
-    const index = post.likes.findIndex(id => id.toString() === userId);
+    const index = post.likes.indexOf(userId);
     if (index === -1) {
       post.likes.push(userId);
     } else {
@@ -35,47 +35,36 @@ router.post('/:id/like', verificarLogin, async (req, res) => {
 
     await post.save();
     res.json({ success: true, likesCount: post.likes.length });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ success: false });
+  } catch (error) {
+    res.json({ success: false });
   }
 });
 
-router.post('/:id/comentar', verificarLogin, async (req, res) => {
+
+router.post('/posts/:id/comentar', async (req, res) => {
+  const postId = req.params.id;
+  const texto = req.body.texto;
+  const userId = req.user._id;
+
   try {
-    const post = await Post.findById(req.params.id).populate('comentarios.autor');
-    if (!post) return res.status(404).json({ success: false, message: 'Post não encontrado' });
-
-    const novoComentario = {
-      texto: req.body.texto,
-      autor: req.session.usuario._id
-    };
-
-    post.comentarios.push(novoComentario);
+    const post = await Post.findById(postId).populate('comentarios.autor');
+    post.comentarios.push({ texto, autor: userId });
     await post.save();
     await post.populate('comentarios.autor');
 
-    res.json({
-      success: true,
-      comentarios: post.comentarios.map(c => ({
-        texto: c.texto,
-        autor: { nome: c.autor?.nome || 'Anônimo' }
-      }))
-    });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ success: false });
+    res.json({ success: true, comentarios: post.comentarios });
+  } catch (error) {
+    res.json({ success: false });
   }
 });
 
-router.post('/:id/salvar', verificarLogin, async (req, res) => {
+router.post('/posts/:id/salvar', async (req, res) => {
+  const postId = req.params.id;
+  const userId = req.user._id;
+
   try {
-    const post = await Post.findById(req.params.id);
-    if (!post) return res.status(404).json({ success: false, message: 'Post não encontrado' });
-
-    const userId = req.session.usuario._id.toString();
-
-    const index = post.salvosPor.findIndex(id => id.toString() === userId);
+    const post = await Post.findById(postId);
+    const index = post.salvosPor.indexOf(userId);
     if (index === -1) {
       post.salvosPor.push(userId);
     } else {
@@ -84,10 +73,10 @@ router.post('/:id/salvar', verificarLogin, async (req, res) => {
 
     await post.save();
     res.json({ success: true });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ success: false });
+  } catch (error) {
+    res.json({ success: false });
   }
 });
+
 
 module.exports = router;

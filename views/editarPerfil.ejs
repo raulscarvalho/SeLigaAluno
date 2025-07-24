@@ -1,0 +1,19 @@
+<%- include('./partials/header') %>
+
+<main class="container mt-5">
+  <h2>Editar Perfil</h2>
+  <form action="/perfil/editar" method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label class="form-label">Nome</label>
+      <input type="text" name="nome" class="form-control" value="<%= usuario.nome %>" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Nova foto de perfil</label>
+      <input type="file" name="foto" accept="image/*" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-success">Salvar Alterações</button>
+    <a href="/perfil" class="btn btn-secondary">Cancelar</a>
+  </form>
+</main>
+
+<%- include('./partials/footer') %>
