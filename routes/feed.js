@@ -2,9 +2,11 @@ const express = require('express');
 const router = express.Router();
 const Post = require('../models/Post');
 const verificarLogin = require('../middlewares/verificarLogin');
+const Usuario = require('../models/Usuario');
 
 router.get('/', verificarLogin, async (req, res) => {
   try {
+    const usuario = await Usuario.findById(req.session.usuario._id);
     const posts = await Post.find({ author: { $ne: null } })
       .populate('author')
       .populate('comentarios.autor')
@@ -12,7 +14,7 @@ router.get('/', verificarLogin, async (req, res) => {
 
     res.render('feed', {
       posts,
-      usuario: req.session.usuario
+      usuario
     });
   } catch (err) {
     console.error(err);
