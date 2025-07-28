@@ -164,6 +164,141 @@ a {
   height: 50px;
 }
 
+/* Decoração login/signup */
+.decoracao{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* impede que interfiram no clique */
+  z-index: 0;
+}
+
+.icon-deco{
+  position: absolute;
+  width: 40px;
+  opacity: 0.7;
+} 
+
+.Qa {
+  width: 120px;
+  height: 230px;
+  position: absolute; 
+  background: #FBEB78;
+  top: 10%;
+  left: 20%;
+}
+
+.Qa2 {
+  width: 230px;
+  height: 100px;
+  position: absolute; 
+  background: #FBEB78;
+  bottom: 10%;
+  right: 5%;
+}
+
+.Cv {
+  width: 130px; 
+  height: 130px; 
+  background: #DF3821; 
+  border-radius: 9999px;
+  top: 60%;
+  right: 23%;
+}
+
+.Cv2 {
+  width: 90px; 
+  height: 90px; 
+  background: #DF3821; 
+  border-radius: 9999px;
+  top: 25%;
+  left: 5%;
+}
+
+.Cv3{
+  width: 90px; 
+  height: 90px; 
+  background: #DF3821; 
+  border-radius: 9999px;
+  top: 10%;
+  right: 5%;  
+}
+
+.Qvd{
+  position: absolute; 
+  width: 100px; 
+  height: 100px; 
+  background: #B9E185;
+  bottom: 30%;
+  left: 15%;
+}
+
+.Qvd2{
+  position: absolute; 
+  width: 70px; 
+  height: 70px; 
+  background: #B9E185;
+  top: 40%;
+  right: 14%;
+}
+
+.Qr{
+  position: absolute; 
+  width: 60px; 
+  height: 60px; 
+  background: #FF6961;
+  bottom: 15%;
+  left: 8%;
+}
+
+.Qr2{
+  position: absolute; 
+  width: 60px; 
+  height: 60px; 
+  background: #FF6961;
+  bottom: 25%;
+  left: 5%;
+}
+
+.Qr3{
+  position: absolute; 
+  width: 60px; 
+  height: 60px; 
+  background: #FF6961;
+  bottom: 8%;
+  left: 3%;
+}
+
+.Qr4{
+  position: absolute; 
+  width: 60px; 
+  height: 60px; 
+  background: #FF6961;
+  top: 15%;
+  right: 28%;
+}
+
+.Qr5{
+  position: absolute; 
+  width: 60px; 
+  height: 60px; 
+  background: #FF6961;
+  top: 25%;
+  right: 25%;
+}
+
+.Qr6{
+  position: absolute; 
+  width: 60px; 
+  height: 60px; 
+  background: #FF6961;
+  top: 8%;
+  right: 23%;
+}
+/*  */
+
 /* Perfil */
 
 .foto-nome{
