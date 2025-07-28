@@ -21,6 +21,9 @@ const perfilRouter = require('./routes/perfil');
 
 const app = express();
 
+const methodOverride = require('method-override');
+app.use(methodOverride('_method'));
+
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI);

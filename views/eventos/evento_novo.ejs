@@ -2,7 +2,7 @@
 
 <main class="container my-5">
   <h2>Cadastrar Novo Evento</h2>
-  <form action="/eventos/novo" method="POST">
+  <form action="/eventos/novo" method="POST" enctype="multipart/form-data">
     <div class="mb-3">
       <label for="titulo" class="form-label">Nome do Evento</label>
       <input type="text" class="form-control" id="titulo" name="titulo" required>
@@ -27,7 +27,11 @@
       <label for="local" class="form-label">Local</label>
       <input type="text" class="form-control" id="local" name="local" required>
     </div>
-
+    <div class="mb-3">
+      <label for="imagem" class="form-label">Imagem do Evento</label>
+      <input type="file" class="form-control" id="imagem" name="imagem" accept="image/*" required>
+    </div>
+  
     <button type="submit" class="btn btn-primary">Salvar Evento</button>
     <a href="/eventos" class="btn btn-secondary">Cancelar</a>
   </form>

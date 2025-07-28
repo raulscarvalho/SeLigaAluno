@@ -13,21 +13,27 @@
       <% } else { %>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
           <% eventos.forEach(evento => { %>
-            <div class="col">
-              <div class="card h-100">
-                <img src="../images/correioelegante2.png" class="card-img-top" alt="Imagem Evento">
-                <div class="card-body">
-                  <h5 class="card-title"><%= evento.titulo %></h5>
-                  <p class="card-text"><%= evento.descricao %></p>
-                  <p class="card-text">
-                    <small class="text-muted">
-                      <strong>Data:</strong> <%= new Date(evento.data).toLocaleDateString('pt-BR') %><br>
-                      <strong>Local:</strong> <%= evento.local %>
-                    </small>
-                  </p>
+            <a href="/eventos/<%= evento._id %>" class="text-decoration-none text-dark">
+              <div class="col">
+                <div class="card h-100">
+                  <% if (evento.imagem && evento.imagem.data) { %>
+                    <img src="data:<%= evento.imagem.contentType %>;base64,<%= evento.imagem.data.toString('base64') %>" class="card-img-top" alt="Imagem Evento">
+                  <% } else { %>
+                    <img src="/images/placeholder.png" class="card-img-top" alt="Imagem padrão">
+                  <% } %>                  
+                  <div class="card-body">
+                    <h5 class="card-title"><%= evento.titulo %></h5>
+                    <p class="card-text"><%= evento.descricao %></p>
+                    <p class="card-text">
+                      <small class="text-muted">
+                        <strong>Data:</strong> <%= new Date(evento.data).toLocaleDateString('pt-BR') %><br>
+                        <strong>Local:</strong> <%= evento.local %>
+                      </small>
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </a>
           <% }) %>
         </div>
       <% } %>
