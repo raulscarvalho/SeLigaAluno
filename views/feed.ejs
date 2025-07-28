@@ -49,7 +49,7 @@
                 src="data:<%= post.author.foto.contentType %>;base64,<%= post.author.foto.data.toString('base64') %>"
                 class="rounded-circle me-3" width="50" height="50" alt="Foto de perfil">
             <% } else { %>
-              <img src="https://i.pravatar.cc/60" class="rounded-circle me-3" width="50" height="50"
+              <img src="/images/nopic.png" class="rounded-circle me-3" width="50" height="50"
                 alt="Foto de perfil padrão">
             <% } %>
             <div class="flex-grow-1">
