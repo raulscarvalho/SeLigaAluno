@@ -20,14 +20,12 @@
           </div>
 
           <div class="col-lg-6 col-md-12 position-relative">
-            <!-- Botão flutuante, modal, e posts -->
-            <!-- Botão de Criar Novo Post -->
+
             <button id="btnFlutuante" class="btn" data-bs-toggle="modal" data-bs-target="#novoPostModal"
               aria-label="Criar Novo Post">
               <img src="../icons/mdi_pencil-plus.svg" alt="Ícone botão criar post" width="24" height="24">
             </button>
 
-            <!-- Modal de Novo Post -->
             <div class="modal fade" id="novoPostModal" tabindex="-1" aria-labelledby="novoPostModalLabel"
               aria-hidden="true">
               <div class="modal-dialog">
@@ -89,61 +87,10 @@
                                         <% } %>
                                 </h6>
                               </div>
-                              <div>
-                                <button class="btn-icon" aria-label="Mais opções do post"><i
-                                    class="bi bi-three-dots"></i></button>
-                              </div>
                             </div>
                             <p class="conteudo" style="text-align: left;">
                               <%= post.message %>
                             </p>
-                            <div class="icones">
-                              <button class="btn-icon btn-like"
-                                aria-label="<%= curtiu ? 'Descurtir post' : 'Curtir post' %>" title="Curtir">
-                                <i class="bi <%= curtiu ? 'bi-heart-fill text-danger' : 'bi-heart' %> fs-6"></i>
-                                <span class="like-count">
-                                  <%= post.likes ? post.likes.length : 0 %>
-                                </span>
-                              </button>
-                              <button class="btn-icon btn-comment" aria-label="Comentar post" title="Comentar">
-                                <i class="bi bi-chat fs-6"></i>
-                                <span class="comment-count">
-                                  <%= post.comentarios ? post.comentarios.length : 0 %>
-                                </span>
-                              </button>
-                              <button class="btn-icon btn-save"
-                                aria-label="<%= salvou ? 'Remover dos salvos' : 'Salvar post' %>" title="Salvar">
-                                <i class="bi <%= salvou ? 'bi-bookmark-fill text-primary' : 'bi-bookmark' %> fs-6"></i>
-                              </button>
-                            </div>
-
-                            <!-- Área de comentários (inicialmente oculta) -->
-                            <div class="comentarios mt-3" style="display:none;">
-                              <div class="lista-comentarios mb-2">
-                                <% if (post.comentarios && post.comentarios.length> 0) { %>
-                                  <% post.comentarios.forEach(comentario=> { %>
-                                    <div class="comentario border rounded p-2 mb-1">
-                                      <small>
-                                        <strong>
-                                          <%= comentario.autor && comentario.autor.nome ? comentario.autor.nome
-                                            : 'Anônimo' %>:
-                                        </strong>
-                                        <%= comentario.texto %>
-                                      </small>
-                                    </div>
-                                    <% }) %>
-                                      <% } else { %>
-                                        <p class="text-muted">Nenhum comentário ainda.</p>
-                                        <% } %>
-                              </div>
-                              <form class="form-comentario">
-                                <div class="input-group">
-                                  <input type="text" class="form-control input-comentario"
-                                    placeholder="Escreva um comentário..." required>
-                                  <button class="btn btn-primary btn-submit-comentario" type="submit">Enviar</button>
-                                </div>
-                              </form>
-                            </div>
 
                           </div>
                   </div>
@@ -155,7 +102,6 @@
 
           <div class="col-lg-3 d-none d-lg-block">
             <!-- Notícias (com a classe SLN aplicada) -->
-            ...
           </div>
 
         </div>
