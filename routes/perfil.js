@@ -13,7 +13,7 @@ router.get('/', verificarLogin, async (req, res) => {
   try {
     const usuario = await Usuario.findById(req.session.usuario._id);
     const posts = await Post.find({ author: usuario._id }).sort({ createdAt: -1 });
-    res.render('perfil', { usuario, posts });
+    res.render('perfil', { usuario, posts, usuarioLogado: req.session.usuario });
   } catch (err) {
     console.error(err);
     res.status(500).send('Erro ao carregar perfil');
