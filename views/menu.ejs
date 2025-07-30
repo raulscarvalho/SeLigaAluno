@@ -1,119 +1,138 @@
 <%- include('./partials/header') %>
-<main>
-  <div class="ui segment">
-    <div class="container my-5">
-      <h2 class="mb-4">Menu</h2>
-      <div class="row justify-content center">
-        <div class="col-auto">
-          <div class="card" style="width: 12rem;">
-            <div class="card-body">
-              <h5>Segunda-feira</h5>
-              <p>26/05/2025</p>
+
+<main class="container my-5">
+  <h2 class="mb-4 text-center">Cardápio da Semana</h2>
+
+  <!-- Abas -->
+  <ul class="nav nav-tabs justify-content-center mb-4" id="cardapioTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="almoco-tab" data-bs-toggle="tab" data-bs-target="#almoco" type="button" role="tab">Almoço</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="merenda-tab" data-bs-toggle="tab" data-bs-target="#merenda" type="button" role="tab">Merenda</button>
+    </li>
+  </ul>
+
+  <!-- Conteúdo das abas -->
+  <div class="tab-content" id="cardapioTabsContent">
+
+    <!-- Almoço -->
+    <div class="tab-pane fade show active" id="almoco" role="tabpanel">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
+        <% const almocos = [
+        {
+          dia: 'Segunda-feira',
+          prato: 'Frango grelhado',
+          itens: ['Arroz branco', 'Feijão preto', 'Purê de batata'],
+          imagem: '/images/images.jpeg'
+        },
+        {
+          dia: 'Terça-feira',
+          prato: 'Carne de panela',
+          itens: ['Arroz branco', 'Feijão carioca', 'Salada mista'],
+          imagem: '/images/almoco-terca.jpg.webp'
+        },
+        {
+          dia: 'Quarta-feira',
+          prato: 'Peixe assado',
+          itens: ['Arroz branco', 'Farofa', 'Legumes no vapor'],
+          imagem: '/images/almoco-quarta.jpg'
+        },
+        {
+          dia: 'Quinta-feira',
+          prato: 'Estrogonofe de frango',
+          itens: ['Arroz branco', 'Batata palha', 'Feijão preto'],
+          imagem: '/images/almoco-quinta.jpg.avif'
+        },
+        {
+          dia: 'Sexta-feira',
+          prato: 'Macarronada à bolonhesa',
+          itens: ['Macarrão cozido', 'Molho de tomate', 'Carne moída'],
+          imagem: '/images/almoco-sexta.jpeg'
+        }
+      ]; %>
+       %>
+
+        <% almocos.forEach(d => { %>
+          <div class="col">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body text-center bg-light">
+                <h5 class="card-title mb-1"><%= d.dia %></h5>
+              </div>
+              <img src="<%= d.imagem %>" class="card-img-top imagem-refeicao" alt="Imagem do almoço">
+              <div class="card-body text-center">
+                <h6><%= d.prato %></h6>
+              </div>
+              <ul class="list-group list-group-flush">
+                <% d.itens.forEach(item => { %>
+                  <li class="list-group-item"><%= item %></li>
+                <% }) %>
+              </ul>
             </div>
-            <img src="../images/images.jpeg" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Frango em tiras</h5>
-            </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">Arroz branco</li>
-              <li class="list-group-item">Peito de frango grelhado em tiras</li>
-              <li class="list-group-item">Feijão preto</li>
-              <li class="list-group-item">Purê de batata</li>
-            </ul>
           </div>
-        </div>
-
-        <!-- Repetir os outros 4 cards igual -->
-
-        <div class="col-auto">
-          <div class="card" style="width: 12rem;">
-            <div class="card-body">
-              <h5>Terça-feira</h5>
-              <p>27/05/2025</p>
-            </div>
-            <img src="../images/images.jpeg" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Frango em tiras</h5>
-            </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">Arroz branco</li>
-              <li class="list-group-item">Peito de frango grelhado em tiras</li>
-              <li class="list-group-item">Feijão preto</li>
-              <li class="list-group-item">Purê de batata</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- ... Continua para Quarta, Quinta e Sexta ... -->
-
-        <div class="col-auto">
-          <div class="card" style="width: 12rem;">
-            <div class="card-body">
-              <h5>Quarta-feira</h5>
-              <p>28/05/2025</p>
-            </div>
-            <img src="../images/images.jpeg" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Frango em tiras</h5>
-            </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">Arroz branco</li>
-              <li class="list-group-item">Peito de frango grelhado em tiras</li>
-              <li class="list-group-item">Feijão preto</li>
-              <li class="list-group-item">Purê de batata</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- ... Continua para Quarta, Quinta e Sexta ... -->
-
-        <div class="col-auto">
-          <div class="card" style="width: 12rem;">
-            <div class="card-body">
-              <h5>Quinta-feira</h5>
-              <p>29/05/2025</p>
-            </div>
-            <img src="../images/images.jpeg" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Frango em tiras</h5>
-            </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">Arroz branco</li>
-              <li class="list-group-item">Peito de frango grelhado em tiras</li>
-              <li class="list-group-item">Feijão preto</li>
-              <li class="list-group-item">Purê de batata</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- ... Continua para Quarta, Quinta e Sexta ... -->
-
-        <div class="col-auto">
-          <div class="card" style="width: 12rem;">
-            <div class="card-body">
-              <h5>Sexta-feira</h5>
-              <p>30/05/2025</p>
-            </div>
-            <img src="../images/images.jpeg" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Frango em tiras</h5>
-            </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">Arroz branco</li>
-              <li class="list-group-item">Peito de frango grelhado em tiras</li>
-              <li class="list-group-item">Feijão preto</li>
-              <li class="list-group-item">Purê de batata</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- ... Continua para Quarta, Quinta e Sexta ... -->
-
+        <% }) %>
       </div>
     </div>
+
+    <!-- Merenda -->
+    <div class="tab-pane fade" id="merenda" role="tabpanel">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
+        <% const merendas = [
+  {
+    dia: 'Segunda-feira',
+    itens: ['Cuscuz com queijo', 'Leite quente'],
+    imagem: '/images/merenda-segunda.jpeg'
+  },
+  {
+    dia: 'Terça-feira',
+    itens: ['Baião com frango', 'Banana'],
+    imagem: '/images/merenda-terca.jpeg'
+  },
+  {
+    dia: 'Quarta-feira',
+    itens: ['Risoto de carne moída', 'Goiaba'],
+    imagem: '/images/merenda-quarta.jpg'
+  },
+  {
+    dia: 'Quinta-feira',
+    itens: ['Cuscuz com ovos', 'Tangerina'],
+    imagem: '/images/merenda-quinta.jpeg'
+  },
+  {
+    dia: 'Sexta-feira',
+    itens: ['Sanduíche de ovos', 'Suco de caju'],
+    imagem: '/images/merenda-sexta.jpg'
+  }
+]; %>
+
+
+        <% merendas.forEach(m => { %>
+          <div class="col">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body text-center bg-light">
+                <h5 class="card-title mb-1"><%= m.dia %></h5>
+              </div>
+              <img src="<%= m.imagem %>" class="card-img-top imagem-refeicao" alt="Imagem da merenda">
+              <ul class="list-group list-group-flush">
+                <% m.itens.forEach(item => { %>
+                  <li class="list-group-item"><%= item %></li>
+                <% }) %>
+              </ul>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+
   </div>
 </main>
-<footer>
-  <%- include('./partials/footer') %>
-</footer>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+<style> 
+  .imagem-refeicao {
+  height: 160px;
+  object-fit: cover;
+}
+</style>
+
+<%- include('./partials/footer') %>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

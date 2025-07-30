@@ -18,6 +18,7 @@ const authRouter = require('./routes/auth');        // login e logout
 const postRouter = require('./routes/posts');       // criação de posts
 const cadastroRouter = require('./routes/cadastro'); // cadastro
 const perfilRouter = require('./routes/perfil');
+const usuariosRouter = require('./routes/usuarios');
 
 const app = express();
 
@@ -67,6 +68,7 @@ app.use('/guiaif', guiaifRouter);
 app.use('/menu', menuRouter);
 app.use('/secjac', secjacRouter);
 app.use('/perfil', perfilRouter);
+app.use('/usuarios', usuariosRouter);
 
 app.use(function (req, res, next) {
   next(createError(404));
